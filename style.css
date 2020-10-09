@@ -18,6 +18,6 @@
   display: none;
 }
 
-.reflect {
-  transform: scale(-1, 1);
+#snifcontainer {
+  display: none;
 }
