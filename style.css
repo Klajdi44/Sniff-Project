@@ -9,7 +9,15 @@
 }
 /* sniff himself */
 
-.drop{
-  r:30px;
+.drop {
+  r: 30px;
   fill: red;
+}
+
+.hidden {
+  display: none;
+}
+
+.reflect {
+  transform: scale(-1, 1);
 }
