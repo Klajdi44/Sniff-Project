@@ -7,9 +7,12 @@
 #mainSvg {
   outline: 1px solid red;
 }
+
 /* sniff himself */
 
-.drop{
-  r:30px;
+.drop {
+  height: 50px;
+  width: 50px;
   fill: red;
 }
+
