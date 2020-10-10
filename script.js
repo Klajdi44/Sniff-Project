@@ -1,14 +1,15 @@
 'use strict';
 
 window.addEventListener('load', start);
-
-let timer = 3600;
+let timer = 3600000;
 //global vars
 const sniff = document.querySelector('#sniff');
 let leftKey = false;
 let rightKey = false;
 let aKey = false;
 let dKey = false;
+let leftArrowTouch = false;
+let rightArrowTouch = false;
 
 const sniffObj = {
   width: 100,
@@ -35,7 +36,26 @@ function start() {
   console.log('ready to start');
   document.addEventListener('keydown', keyDown);
   document.addEventListener('keyup', keyUp);
+  window.addEventListener('resize', ()=>{
+    mobileOrDesktop();
+  })
+  mobileOrDesktop();
   loop();
+}
+
+function mobileOrDesktop(){
+  if (window.matchMedia("(max-width: 1024px)").matches) {
+    document.querySelector('#arrowLeft').addEventListener('touchstart', touchStart);
+    document.querySelector('#arrowRight').addEventListener('touchstart', touchStart);
+    document.querySelector('#arrowLeft').addEventListener('touchend', touchEnd);
+    document.querySelector('#arrowRight').addEventListener('touchend', touchEnd);  
+  } else {
+    document.querySelector('#arrowLeft').addEventListener('mousedown', touchStart);
+    document.querySelector('#arrowRight').addEventListener('mousedown', touchStart);
+    document.querySelector('#arrowLeft').addEventListener('mouseup', touchEnd);
+    document.querySelector('#arrowRight').addEventListener('mouseup', touchEnd);
+  
+  }
 }
 
 
@@ -44,7 +64,7 @@ function loop() {
   if (timer > 0) {
     timer--;
   }
-  if (timer % 100 === 0) {
+  if (timer % 200 === 0) {
     // createDrop();
     createDrop()
 
@@ -63,9 +83,9 @@ function loop() {
 function move() {
   // let xPosition = parseInt(sniff.getAttribute('x'));
   //if  arrow keys,or A,D keys  are pressed, set them to true and limit the position so it doesnt go out of the box
-  if (rightKey) {                                                               //svg width - rectangle
+  if (rightKey || rightArrowTouch) {                                                               //svg width - rectangle
     sniffObj.x = Math.min(Math.max(sniffObj.x + sniffObj.movmentSpeed), 1920 - 100);
-  } else if (leftKey) {
+  } else if (leftKey || leftArrowTouch) {
     sniffObj.x = Math.min(Math.max(sniffObj.x - sniffObj.movmentSpeed, 0));
   }
 
@@ -109,46 +129,63 @@ function keyUp(event) {
   }
 }
 
+function touchStart(event) {
+  if (event.target === document.querySelector('#arrowRight')) {
+       rightArrowTouch = true;
 
+  } else if (event.target === document.querySelector('#arrowLeft')){
+     leftArrowTouch = true;
 
-function createDrop(positionX, positionY) {
-  // get random value between two values.   //max - min + min
-  positionY = Math.floor(Math.random() * (850 - 750) + 750);
-  //get random value up to 1850
-  positionX = Math.ceil((Math.random() * 1850));
-  // console.log(positionY, positionX);
-  //create circle
-  const drop = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-  let newDropObj = Object.create(dropObj);
-  newDropObj.x = positionX;
-  newDropObj.y = positionY;
-  newDropObj.node = drop;
-  arrOfDrops.push(newDropObj);
+    }
 
-
-  document.querySelector('#sprites').appendChild(drop);
-
-  drop.setAttribute('y', newDropObj.y);
-  //set position X
-  drop.setAttribute('x', newDropObj.x);
-  drop.setAttribute('height', newDropObj.height);
-  drop.setAttribute('width', newDropObj.width);
-  drop.setAttribute('fill', newDropObj.fill);
-
-  return drop;
-}
-// setInterval(createDrop, 4000);
-
-
-function detectCollision(obj1, obj2) {
-  if (obj1.x < obj2.x + obj2.width &&
-    obj1.x + obj1.width > obj2.x &&
-    obj1.y < obj2.y + obj2.height &&
-    obj1.y + obj1.height > obj2.y) {
-    console.log('collision');
-    obj2.node.style.fill = "blue";
   }
 
-  // console.log(obj1.x, obj2.x)
-}
+  function touchEnd(event) {
+    if (event.target === document.querySelector('#arrowRight')) {
+      rightArrowTouch = false;
+ } else if (event.target === document.querySelector('#arrowLeft')){
+    leftArrowTouch = false;
+   }
+  }
+
+
+
+  function createDrop(positionX, positionY) {
+    // get random value between two values.   //max - min + min
+    positionY = Math.floor(Math.random() * (850 - 750) + 750);
+    //get random value up to 1850
+    positionX = Math.ceil((Math.random() * 1850));
+    // console.log(positionY, positionX);
+    //create circle
+    const drop = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    let newDropObj = Object.create(dropObj);
+    newDropObj.x = positionX;
+    newDropObj.y = positionY;
+    newDropObj.node = drop;
+    arrOfDrops.push(newDropObj);
+
+    document.querySelector('#sprites').appendChild(drop);
+    drop.setAttribute('y', newDropObj.y);
+    //set position X
+    drop.setAttribute('x', newDropObj.x);
+    drop.setAttribute('height', newDropObj.height);
+    drop.setAttribute('width', newDropObj.width);
+    drop.setAttribute('fill', newDropObj.fill);
+
+    return drop;
+  }
+  // setInterval(createDrop, 4000);
+
+
+  function detectCollision(obj1, obj2) {
+    if (obj1.x < obj2.x + obj2.width &&
+      obj1.x + obj1.width > obj2.x &&
+      obj1.y < obj2.y + obj2.height &&
+      obj1.y + obj1.height > obj2.y) {
+      console.log('collision');
+      obj2.node.style.fill = "blue";
+    }
+
+    // console.log(obj1.x, obj2.x)
+  }
 

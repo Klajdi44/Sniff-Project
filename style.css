@@ -16,3 +16,11 @@
   fill: red;
 }
 
+#arrows{
+  transform: translateY(54em) scale(.5) translateX(5em);
+  z-index: 5;
+}
+
+#arrowLeft,#arrowRight{
+  fill:rgba(255, 0, 0, 0.358)
+}
