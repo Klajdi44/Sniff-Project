@@ -30,7 +30,7 @@ function createInitSVG(svg) {
     useSVG(svg, `startScreen`); //create start screen
     hideContainers();
     
-    document.querySelector("#button").addEventListener("click", startButtonEvent); //start game event
+    document.querySelector("#button-start").addEventListener("click", startButtonEvent); //start game event
 }
 
 function useSVG(svg, useID){
