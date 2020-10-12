@@ -16,9 +16,9 @@ let leftFoxArray;
 let rightFoxArray;
 
 const sniffObj = {
-  width: 100,
-  height: 600,
-  x: 70,
+  width: 1800,
+  height: 1800,
+  x: 10,
   y: 10,
   //fill: "none",
   movmentSpeed: 10,
@@ -44,7 +44,7 @@ function start() {
 }
 
 function loadSVGs() {
-  loadSVG("sniffixed-01.svg", "#snifcontainer", hideSnif);
+  loadSVG("sniffixed-01.svg", "#sprites", hideSnif);
 }
 
 function loadSVG(url, target, callback) {
@@ -53,11 +53,7 @@ function loadSVG(url, target, callback) {
     .then((svgData) => {
       document.querySelector(target).innerHTML = svgData;
       if (callback) {
-        const snifSvg = document.createElementNS("http://www.w3.org/2000/svg", "use");
-        snifSvg.setAttribute("href", "#sniff");
-        snifSvg.setAttribute("id", "snifFox");
-        document.querySelector("#sprites").appendChild(snifSvg);
-        sniff = document.querySelector("#snifFox");
+        sniff = document.querySelector("#sniff");
         leftFoxArray = document.querySelectorAll(".foxleft");
         rightFoxArray = document.querySelectorAll(".foxright");
         callback();
