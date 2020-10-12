@@ -10,6 +10,8 @@ let aKey = false;
 let dKey = false;
 let leftArrowTouch = false;
 let rightArrowTouch = false;
+let points = 0;
+let currentDrop;
 
 const sniffObj = {
   width: 100,
@@ -21,8 +23,8 @@ const sniffObj = {
 }
 
 const arrOfDrops = [{
-  height: 50,
-  width: 50,
+  height: 100,
+  width: 100,
   fill: 'red',
   y: 0,
   x: 0,
@@ -156,23 +158,34 @@ function touchStart(event) {
     //get random value up to 1850
     positionX = Math.ceil((Math.random() * 1850));
     // console.log(positionY, positionX);
-    //create circle
-    const drop = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      
+    if(points <=30){
+      currentDrop = document.querySelector('#water');
+      currentDrop.setAttribute('use','href=#water');
+    }else if(points >30 && points <=60){
+      sniff.style.fill = 'black'
+      document.querySelector('#water').style.display = 'none';
+      currentDrop = document.querySelector('#electricity');
+      currentDrop.setAttribute('use','href=#electricity');
+    }
+   
+
     let newDropObj = Object.create(dropObj);
     newDropObj.x = positionX;
     newDropObj.y = positionY;
-    newDropObj.node = drop;
+    newDropObj.node = currentDrop;
     arrOfDrops.push(newDropObj);
 
-    document.querySelector('#sprites').appendChild(drop);
-    drop.setAttribute('y', newDropObj.y);
+    currentDrop.setAttribute('y', newDropObj.y);
     //set position X
-    drop.setAttribute('x', newDropObj.x);
-    drop.setAttribute('height', newDropObj.height);
-    drop.setAttribute('width', newDropObj.width);
-    drop.setAttribute('fill', newDropObj.fill);
+    currentDrop.setAttribute('x', newDropObj.x);
+    currentDrop.setAttribute('height', newDropObj.height);
+    currentDrop.setAttribute('width', newDropObj.width);
+    currentDrop.setAttribute('fill', newDropObj.fill);
 
-    return drop;
+    document.querySelector('#sprites').appendChild(currentDrop);
+
+    return currentDrop;
   }
   // setInterval(createDrop, 4000);
 
@@ -183,9 +196,13 @@ function touchStart(event) {
       obj1.y < obj2.y + obj2.height &&
       obj1.y + obj1.height > obj2.y) {
       console.log('collision');
-      obj2.node.style.fill = "blue";
+      arrOfDrops.splice(obj2.node);
+      modifyScore();
     }
-
     // console.log(obj1.x, obj2.x)
+  }
+
+  function modifyScore(){
+    document.querySelector('.score').textContent = points += 10;
   }
 
