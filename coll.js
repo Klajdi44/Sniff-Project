@@ -41,7 +41,7 @@ const arrOfDrops = [
 const dropObj = arrOfDrops[0];
 
 function loadSVGs() {
-  loadSVG("./SVG/Artboard 1.svg", "#snifcontainer");
+  loadSVG("./snifhats-01.svg", "#snifcontainer");
 }
 
 function loadSVG(url, target, callback) {
