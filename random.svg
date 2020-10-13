@@ -3,7 +3,7 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
 	y="0px" viewBox="0 0 1920 1080" enable-background="new 0 0 1920 1080" xml:space="preserve">
 	<g id="startSVG">
-		<image overflow="visible" width="1920" height="1080" xlink:href="light.png"
+		<image overflow="visible" width="1920" height="1080" xlink:href="light-bg.png"
 			transform="matrix(0.9991 0 0 0.9991 0.7778 0)">
 		</image>
 		<g opacity="0.57">

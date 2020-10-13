@@ -15,18 +15,32 @@
     </g>
 
     <g id='sprites'>
-      <rect id='sniff' />
     </g>
 
     <g id='foreground'>
+      <g id='arrows' class="hidden">
+        <path id="arrowLeft"
+          d="M122.64,254c3.22,3.21,5.82,2.13,5.82-2.41V216.28a8.23,8.23,0,0,1,8.23-8.23H296.06a8.22,8.22,0,0,0,8.22-8.22V56a8.22,8.22,0,0,0-8.22-8.22H136.69a8.23,8.23,0,0,1-8.23-8.23V4.26c0-4.54-2.6-5.62-5.82-2.41L2.41,122.08a8.24,8.24,0,0,0,0,11.64Z"
+          fill="#6fb52c" />
+        <path id="arrowRight"
+          d="M690.13,133.72a8.22,8.22,0,0,0,0-11.64L569.9,1.85c-3.21-3.21-5.82-2.13-5.82,2.41V39.52a8.23,8.23,0,0,1-8.22,8.23H396.49A8.23,8.23,0,0,0,388.26,56V199.83a8.23,8.23,0,0,0,8.23,8.22H555.86a8.23,8.23,0,0,1,8.22,8.23v35.26c0,4.54,2.61,5.62,5.82,2.41Z"
+          fill="#6fb52c" />
+      </g>
     </g>
   </svg>
 
+  <div class="points">Score:<span class="score"></span></div>
+  
+  <div class="waterContainer"></div>
+  <div class="electricityContainer"></div>
+  <div class="lightContainer"></div>
+  <div class="heatContainer"></div>
+  <div id="snifcontainer"></div>
   <div id="startcontainer"></div>
   <div id="levelscontainer"></div>
 
-  <script src="level-changing.js"></script>
-  <!-- <script src="script.js"></script> -->
+  <!-- <script src="level-changing.js"></script> -->
+  <script src="script.js"></script>
 </body>
 
 </html>

@@ -6,6 +6,39 @@
 }
 
 /* sniff himself */
+#snifcontainer {
+  display: none;
+}
+
+.drop {
+  height: 50px;
+  width: 50px;
+  fill: red;
+}
+
+#arrows {
+  transform: translateY(54em) scale(0.5) translateX(5em);
+  z-index: 5;
+}
+
+#arrowLeft,
+#arrowRight {
+  fill: rgba(255, 0, 0, 0.358);
+}
+
+#power,
+#heat,
+#light,
+#water {
+  width: 0;
+}
+
+.points {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  font-size: 1.5em;
+}
 
 .drop {
   r: 30px;
@@ -18,10 +51,10 @@
 
 /* Game start buttons and animations */
 #button-start,
-#water,
-#light,
-#power,
-#heat {
+#water-bg,
+#light-bg,
+#power-bg,
+#heat-bg {
   cursor: pointer;
 }
 

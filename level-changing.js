@@ -27,17 +27,17 @@ function createInitSVG(svg) {
         document.querySelector("#levelsScreen").remove();
     }
 
-    useSVG(svg, `startScreen`); //create start screen
+    useSVG(svg, `startScreen`, "#background"); //create start screen
     hideContainers();
     
     document.querySelector("#button-start").addEventListener("click", startButtonEvent); //start game event
 }
 
-function useSVG(svg, useID){
+function useSVG(svg, useID, endPoint){
     const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
     use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", `${svg}`);
     use.setAttribute("id", `${useID}`);
-    document.querySelector("#background").appendChild(use);
+    document.querySelector(`${endPoint}`).appendChild(use);
 }
 
 function hideContainers(){
@@ -74,6 +74,7 @@ function startButtonEvent(){
 //Load background, dropplets and other assets on level load
 function loadLevelAssets(event){
     fadeOutAnimation();
+    
     const eventTargetId=event.target.id;
     removeBackButton("#startBackButton");
 
@@ -82,10 +83,13 @@ function loadLevelAssets(event){
         createBackButton("levelsBackButton");
         document.querySelector("#levelsBackButton").addEventListener("click", goBackLevels);
 
+        document.querySelector("#arrows").classList.remove("hidden");
+
         document.querySelector("#background-image").classList.remove("hidden");
         document.querySelector("#levelsScreen").remove();
         uploadBackground(`${eventTargetId}.png`);
         fadeInAnimation();
+        loadSVGs();
     },300);
     
     //also set droplet svgs to appropriate-ones and load both snif and droplets
@@ -115,6 +119,7 @@ function removeBackButton(buttonID){ //Need to remove button so there is no over
 function goBackLevels(event){
     fadeOutAnimation();
     startButtonEvent();
+    document.querySelector("#arrows").classList.add("hidden");
 
     setTimeout(function(){
         document.querySelector("#background-image").classList.add("hidden");
