@@ -54,3 +54,8 @@
   right: 50%;
   font-size: 1.5em;
 }
+
+#sprites{
+  height: 1000;
+  width: 1000;
+}

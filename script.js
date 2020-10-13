@@ -40,7 +40,7 @@ function start() {
 }
 
 function loadSVGs() {
-  loadSVG("sniffixed-01.svg", "#sprites", hideSnif);
+  loadSVG("snifhats-01.svg", "#sprites", hideSnif);
 }
 
 function loadSVG(url, target, callback) {
@@ -55,6 +55,7 @@ function loadSVG(url, target, callback) {
         callback();
         move();
         createDrop();
+        getHats();
       }
     });
 }
@@ -109,6 +110,13 @@ function hideFrame() {
   showFrames();
 }
 
+function getHats() {
+  document.querySelectorAll(".hat").forEach((hat) => {
+    const hatId = hat.getAttribute("id");
+    console.log("yhh");
+  });
+}
+
 function keyDown(event) {
   if (event.key === "ArrowLeft" || event.key === "a") {
     leftKey = true;
@@ -160,6 +168,3 @@ function createDrop(positionY, positionX) {
   drop.classList.add("drop");
   document.querySelector("#sprites").appendChild(drop);
 }
-
-
-
