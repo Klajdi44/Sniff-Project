@@ -41,7 +41,7 @@ const arrOfDrops = [
 const dropObj = arrOfDrops[0];
 
 function loadSVGs() {
-  loadSVG("./snifhats-01.svg", "#snifcontainer");
+  loadSVG("snifhats.svg", "#snifcontainer");
 }
 
 function loadSVG(url, target, callback) {
@@ -118,7 +118,7 @@ function getHats() {
     const hatId = hat.getAttribute("id");
     let pointString = pointsHundreds.toString();
 
-    if (pointString.includes("00") && hatId.includes(`hat${pointsHundreds / 100}_`)) {
+    if (pointString.includes("00") && hatId.includes(`hat${pointsHundreds / 100}`)) {
       hat.classList.remove("hidden");
     } else {
       hat.classList.add("hidden");
