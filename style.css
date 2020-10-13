@@ -108,3 +108,16 @@ html {
     opacity: 0;
   }
 }
+
+@media only screen and (max-width: 1200px) {
+  .points,
+  .highPoints {
+    padding: 0.5em 1em;
+    font-size: 1.5em;
+  }
+
+  .highScoreBtn {
+    padding: 0.2em 0.5em;
+    font-size: 0.8em;
+  }
+}

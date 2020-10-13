@@ -18,6 +18,7 @@ let points = 0;
 let currentDrop;
 let leftFoxArray;
 let rightFoxArray;
+let pointsHundreds = 0;
 
 const sniffObj = {
   width: 350,
@@ -202,7 +203,7 @@ function fadeOutAnimation(){
 
 
 function loadFox() {
-  loadSnif("sniffixed-01.svg", "#snifcontainer", hideSnif);
+  loadSnif("snifhats.svg", "#snifcontainer", hideSnif);
   loadDrops();
 }
 
@@ -237,6 +238,7 @@ function loadSnif(url, target, callback) {
         rightFoxArray = document.querySelectorAll(".foxright");
         startSnif();
         loop();
+        getHats();
         callback();
       }
     });
@@ -297,6 +299,21 @@ function hideFrame() {
   foxArray[i].classList.add("hidden");
   i++;
   showFrames();
+}
+
+function getHats() {
+  document.querySelectorAll(".hat").forEach((hat) => {
+    hat.classList.add("hidden");
+    const hatId = hat.getAttribute("id");
+    let pointString = pointsHundreds.toString();
+
+    if (pointString.includes("00") && hatId.includes(`hat${pointsHundreds / 100}`)) {
+      hat.classList.remove("hidden");
+    } else {
+      hat.classList.add("hidden");
+    }
+    console.log(hatId);
+  });
 }
 
 function startSnif() {
@@ -487,6 +504,11 @@ function touchStart(event) {
 
   function modifyScore(){
     document.querySelector('.score').textContent = points += 10;
+
+    if (points.toString().includes("00")) {
+      pointsHundreds = points;
+    }
+    getHats();
   }
 
   function saveToLocalStorage() {
