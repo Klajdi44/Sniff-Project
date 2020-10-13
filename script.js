@@ -1,208 +1,165 @@
-'use strict';
+"use strict";
 
-window.addEventListener('load', start);
-let timer = 3600000;
+window.addEventListener("load", start);
+
 //global vars
-const sniff = document.querySelector('#sniff');
+let i = 0;
+let sniff;
+let sniffLeft;
+let foxArray;
 let leftKey = false;
 let rightKey = false;
 let aKey = false;
 let dKey = false;
-let leftArrowTouch = false;
-let rightArrowTouch = false;
-let points = 0;
-let currentDrop;
+let leftFoxArray;
+let rightFoxArray;
 
 const sniffObj = {
   width: 100,
   height: 100,
   x: 800,
   y: 800,
-  fill: 'orange',
-  movmentSpeed: 10
-}
+  //fill: 'orange',
+  movmentSpeed: 10,
+};
 
-const arrOfDrops = [{
-  height: 100,
-  width: 100,
-  fill: 'red',
-  y: 0,
-  x: 0,
-  node: "",
+function initialize(sprite, obj) {
+  sprite.setAttribute("x", obj.x);
+  sprite.setAttribute("y", obj.y);
+  sprite.setAttribute("fill", obj.fill);
+  sprite.setAttribute("width", obj.width);
+  sprite.setAttribute("height", obj.height);
 }
-]
-const dropObj = arrOfDrops[0];
-
 
 function start() {
-  console.log('ready to start');
-  document.addEventListener('keydown', keyDown);
-  document.addEventListener('keyup', keyUp);
-  window.addEventListener('resize', ()=>{
-    mobileOrDesktop();
-  })
-  mobileOrDesktop();
-  loop();
+  console.log("ready to start");
+  loadSVGs();
+  //initialize(sniff,sniffObj);
+  document.addEventListener("keydown", keyDown);
+  document.addEventListener("keyup", keyUp);
 }
 
-function mobileOrDesktop(){
-  if (window.matchMedia("(max-width: 1024px)").matches) {
-    document.querySelector('#arrowLeft').addEventListener('touchstart', touchStart);
-    document.querySelector('#arrowRight').addEventListener('touchstart', touchStart);
-    document.querySelector('#arrowLeft').addEventListener('touchend', touchEnd);
-    document.querySelector('#arrowRight').addEventListener('touchend', touchEnd);  
-  } else {
-    document.querySelector('#arrowLeft').addEventListener('mousedown', touchStart);
-    document.querySelector('#arrowRight').addEventListener('mousedown', touchStart);
-    document.querySelector('#arrowLeft').addEventListener('mouseup', touchEnd);
-    document.querySelector('#arrowRight').addEventListener('mouseup', touchEnd);
-  
-  }
+function loadSVGs() {
+  loadSVG("sniffixed-01.svg", "#sprites", hideSnif);
 }
 
+function loadSVG(url, target, callback) {
+  fetch(url)
+    .then((response) => response.text())
+    .then((svgData) => {
+      document.querySelector(target).innerHTML = svgData;
+      if (callback) {
+        sniff = document.querySelector("#sniff");
+        leftFoxArray = document.querySelectorAll(".foxleft");
+        rightFoxArray = document.querySelectorAll(".foxright");
+        callback();
+        move();
+        createDrop();
+      }
+    });
+}
 
-function loop() {
-  move();
-  if (timer > 0) {
-    timer--;
-  }
-  if (timer % 200 === 0) {
-    // createDrop();
-    createDrop()
-
-
-  }
-
-  draw();
-
-  arrOfDrops.forEach(drop => {
-    // console.log(drop)
-    detectCollision(sniffObj, drop);
+function hideSnif() {
+  leftFoxArray.forEach((frame) => {
+    frame.classList.add("hidden");
   });
-  requestAnimationFrame(loop)
+  rightFoxArray.forEach((frame) => {
+    frame.classList.add("hidden");
+  });
+  // rightFoxArray[0].classList.remove("hidden");
+
+  showFrames();
 }
 
-function move() {
-  // let xPosition = parseInt(sniff.getAttribute('x'));
-  //if  arrow keys,or A,D keys  are pressed, set them to true and limit the position so it doesnt go out of the box
-  if (rightKey || rightArrowTouch) {                                                               //svg width - rectangle
-    sniffObj.x = Math.min(Math.max(sniffObj.x + sniffObj.movmentSpeed), 1920 - 100);
-  } else if (leftKey || leftArrowTouch) {
-    sniffObj.x = Math.min(Math.max(sniffObj.x - sniffObj.movmentSpeed, 0));
+function showFrames() {
+  if (sniffLeft === true) {
+    foxArray = leftFoxArray;
+    rightFoxArray.forEach((frame) => {
+      frame.classList.add("hidden");
+    });
+  } else {
+    foxArray = rightFoxArray;
+    leftFoxArray.forEach((frame) => {
+      frame.classList.add("hidden");
+    });
   }
-
+  if (i > -1 && i < 7) {
+    foxArray[i].classList.remove("hidden");
+    setTimeout(hideFrame, 330);
+  } else {
+    i = 0;
+    showFrames();
+  }
 }
 
-function draw() {
-  sniff.setAttribute('x', sniffObj.x);
-  sniff.setAttribute('y', sniffObj.y);
-  sniff.setAttribute('fill', sniffObj.fill);
-  sniff.setAttribute('width', sniffObj.width);
-  sniff.setAttribute('height', sniffObj.height);
-}
-
-function drawDrop(drop) {
-  drop = createDrop();
-  drop.setAttribute('y', dropObj.y);
-  //set position X
-  drop.setAttribute('x', dropObj.x);
-  drop.setAttribute('height', dropObj.height);
-  drop.setAttribute('width', dropObj.width);
-  drop.setAttribute('fill', dropObj.fill);
+function hideFrame() {
+  if (sniffLeft === true) {
+    foxArray = leftFoxArray;
+    rightFoxArray.forEach((frame) => {
+      frame.classList.add("hidden");
+    });
+  } else {
+    foxArray = rightFoxArray;
+    leftFoxArray.forEach((frame) => {
+      frame.classList.add("hidden");
+    });
+  }
+  foxArray[i].classList.add("hidden");
+  i++;
+  showFrames();
 }
 
 function keyDown(event) {
-  if (event.key === 'ArrowLeft' || event.key === 'a') {
+  if (event.key === "ArrowLeft" || event.key === "a") {
     leftKey = true;
     aKey = true;
-  } else if (event.key === 'ArrowRight' || event.key === 'd') {
+  } else if (event.key === "ArrowRight" || event.key === "d") {
     rightKey = true;
     dKey = true;
   }
 }
 
 function keyUp(event) {
-  if (event.key === 'ArrowLeft' || event.key === 'a') {
+  if (event.key === "ArrowLeft" || event.key === "a") {
     leftKey = false;
     aKey = false;
-  } else if (event.key === 'ArrowRight' || event.key === 'd') {
+  } else if (event.key === "ArrowRight" || event.key === "d") {
     rightKey = false;
     dKey = false;
   }
 }
 
-function touchStart(event) {
-  if (event.target === document.querySelector('#arrowRight')) {
-       rightArrowTouch = true;
-
-  } else if (event.target === document.querySelector('#arrowLeft')){
-     leftArrowTouch = true;
-
-    }
-
+function move() {
+  let xPosition = parseInt(sniff.getAttribute("x"));
+  //if  arrow keys,or A,D keys  are pressed, set them to true and limit the position so it doesnt go out of the box
+  if (rightKey) {
+    //svg width - rectangle(sniff) width
+    sniff.setAttribute("x", Math.min(Math.max(xPosition + sniffObj.movmentSpeed), 1920 - 100));
+    sniffLeft = false;
+  } else if (leftKey) {
+    sniff.setAttribute("x", Math.min(Math.max(xPosition - sniffObj.movmentSpeed, 0)));
+    sniffLeft = true;
   }
+  setTimeout(move, 10);
+}
 
-  function touchEnd(event) {
-    if (event.target === document.querySelector('#arrowRight')) {
-      rightArrowTouch = false;
- } else if (event.target === document.querySelector('#arrowLeft')){
-    leftArrowTouch = false;
-   }
-  }
+function createDrop(positionY, positionX) {
+  // get random value between two values.   //max - min + min
+  positionY = Math.floor(Math.random() * (850 - 750) + 750);
+  //get random value up to 1850
+  positionX = Math.ceil(Math.random() * 1850);
+  console.log(positionY, positionX);
+  //create circle
+  const drop = document.createElementNS("http://www.w3.org/2000/svg", "circle");
 
+  //set positionY
+  drop.setAttribute("cy", positionY);
+  //set position X
+  drop.setAttribute("cx", positionX);
 
-
-  function createDrop(positionX, positionY) {
-    // get random value between two values.   //max - min + min
-    positionY = Math.floor(Math.random() * (850 - 750) + 750);
-    //get random value up to 1850
-    positionX = Math.ceil((Math.random() * 1850));
-    // console.log(positionY, positionX);
-      
-    if(points <=30){
-      currentDrop = document.querySelector('#water');
-      currentDrop.setAttribute('use','href=#water');
-    }else if(points >30 && points <=60){
-      sniff.style.fill = 'black'
-      document.querySelector('#water').style.display = 'none';
-      currentDrop = document.querySelector('#electricity');
-      currentDrop.setAttribute('use','href=#electricity');
-    }
-   
-
-    let newDropObj = Object.create(dropObj);
-    newDropObj.x = positionX;
-    newDropObj.y = positionY;
-    newDropObj.node = currentDrop;
-    arrOfDrops.push(newDropObj);
-
-    currentDrop.setAttribute('y', newDropObj.y);
-    //set position X
-    currentDrop.setAttribute('x', newDropObj.x);
-    currentDrop.setAttribute('height', newDropObj.height);
-    currentDrop.setAttribute('width', newDropObj.width);
-    currentDrop.setAttribute('fill', newDropObj.fill);
-
-    document.querySelector('#sprites').appendChild(currentDrop);
-
-    return currentDrop;
-  }
-  // setInterval(createDrop, 4000);
+  drop.classList.add("drop");
+  document.querySelector("#sprites").appendChild(drop);
+}
 
 
-  function detectCollision(obj1, obj2) {
-    if (obj1.x < obj2.x + obj2.width &&
-      obj1.x + obj1.width > obj2.x &&
-      obj1.y < obj2.y + obj2.height &&
-      obj1.y + obj1.height > obj2.y) {
-      console.log('collision');
-      arrOfDrops.splice(obj2.node);
-      modifyScore();
-    }
-    // console.log(obj1.x, obj2.x)
-  }
-
-  function modifyScore(){
-    document.querySelector('.score').textContent = points += 10;
-  }
 
