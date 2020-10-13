@@ -121,7 +121,8 @@ function loadLevelAssets(event){
         document.querySelector("#levelsBackButton").addEventListener("click", goBackLevels);
 
         document.querySelector("#arrows").classList.remove("hidden");
-
+        document.querySelector(".points").classList.remove("hidden");
+        document.querySelector(".highPoints").classList.remove("hidden");
         document.querySelector("#background-image").classList.remove("hidden");
         document.querySelector("#levelsScreen").remove();
         uploadBackground(`${eventTargetId}.png`);
@@ -168,6 +169,8 @@ function goBackLevels(event){
 
     setTimeout(function(){
         document.querySelector("#background-image").classList.add("hidden");
+        document.querySelector(".points").classList.add("hidden");
+        document.querySelector(".highPoints").classList.add("hidden");
         event.target.remove();
         document.querySelector("#sprites").innerHTML = '';
         
@@ -298,6 +301,7 @@ function hideFrame() {
 
 function startSnif() {
   console.log('ready to move');
+  document.querySelector('.highScoreBtn').addEventListener('click', saveToLocalStorage);
   document.addEventListener('keydown', keyDown);
   document.addEventListener('keyup', keyUp);
   window.addEventListener('resize', ()=>{
@@ -329,7 +333,8 @@ function loop() {
   }
   if (timer % 200 === 0 && document.querySelector("#snifFox")) {
     // createDrop();
-    createDrop()
+    createDrop();
+    localStorage.setItem('score', points);
 
 
   }
@@ -340,7 +345,11 @@ function loop() {
     // console.log(drop)
     detectCollision(sniffObj, drop);
   });
-  requestAnimationFrame(loop)
+
+  //set the highScore on click of the button
+  document.querySelector('.Highscore').textContent = localStorage.getItem('highScore');
+
+  requestAnimationFrame(loop);
 }
 
 function move() {
@@ -479,3 +488,13 @@ function touchStart(event) {
   function modifyScore(){
     document.querySelector('.score').textContent = points += 10;
   }
+
+  function saveToLocalStorage() {
+    if (parseInt(localStorage.getItem('highScore')) > points) {
+      if(confirm('The current high score is bigger than the one you want to save, do you want to overwrite?')){
+        localStorage.setItem('highScore', points);
+      }
+    }else{
+      localStorage.setItem('highScore', points);
+    }
+   }
