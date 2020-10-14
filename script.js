@@ -4,6 +4,7 @@ window.addEventListener('load', start);
 
 let timer = 3600000;
 //global vars
+let n = 2; //for bg change
 let i = 0;
 let sniff;
 let sniffLeft;
@@ -44,8 +45,8 @@ const mainSVG = document.querySelector("#mainSvg");
 
 function start() {
     console.log("ready to start");
-    loadSVG("random.svg", "#startcontainer", createInitSVG, "#startSVG");
-    loadSVG("anotherrandom.svg", "#levelscontainer");
+    loadSVG("assets/random.svg", "#startcontainer", createInitSVG, "#startSVG");
+    loadSVG("assets/anotherrandom.svg", "#levelscontainer");
 }
 
 function loadSVG(url, target,callback, createThis) {
@@ -144,7 +145,7 @@ function loadLevelAssets(event){
 
 function uploadBackground(backgroundImage) {
     const bgImage = document.querySelector("#background-image");
-    bgImage.setAttribute("xlink:href", `${backgroundImage}`);
+    bgImage.setAttribute("xlink:href", `assets/${backgroundImage}`);
 }
 
 //Create and remove back button
@@ -174,6 +175,7 @@ function goBackLevels(event){
         document.querySelector(".highPoints").classList.add("hidden");
         event.target.remove();
         document.querySelector("#sprites").innerHTML = '';
+        n = 2; //reset
         
         fadeInAnimation();
     },300)
@@ -203,25 +205,25 @@ function fadeOutAnimation(){
 
 
 function loadFox() {
-  loadSnif("snifhats.svg", "#snifcontainer", hideSnif);
+  loadSnif("assets/snifhats.svg", "#snifcontainer", hideSnif);
   loadDrops();
 }
 
 function loadDrops() {
   if(!document.querySelector(".waterContainer svg")) {
-    loadSVG("water.svg", ".waterContainer");
+    loadSVG("assets/water.svg", ".waterContainer");
   }
 
   if(!document.querySelector(".electricityContainer svg")){
-    loadSVG("electricity.svg", ".electricityContainer");
+    loadSVG("assets/electricity.svg", ".electricityContainer");
   } 
 
   if(!document.querySelector(".heatContainer svg")){
-    loadSVG("heat.svg", ".heatContainer");
+    loadSVG("assets/heat.svg", ".heatContainer");
   } 
   
   if(!document.querySelector(".lightContainer svg")){
-    loadSVG("light.svg", ".lightContainer");
+    loadSVG("assets/light.svg", ".lightContainer");
   } 
 }
 
@@ -470,15 +472,15 @@ function touchStart(event) {
 
   function determineDrop(){
     let dropId;
-    const backgroundImage = document.querySelector("#background-image").href.baseVal;
+    const backgroundImage = document.querySelector("#background-image").getAttribute("xlink:href");
 
-    if(backgroundImage == "light-bg.png"){
+    if(backgroundImage.includes("light-bg")){
       dropId = "#light";
-    } else if (backgroundImage == "water-bg.png") {
+    } else if (backgroundImage.includes("water-bg")) {
       dropId = "#water";
-    } else if (backgroundImage == "power-bg.png") {
+    } else if (backgroundImage.includes("power-bg")) {
       dropId = "#power";
-    } else if (backgroundImage == "heat-bg.png") {
+    } else if (backgroundImage.includes("heat-bg")) {
       dropId = "#heat";
     } 
 
@@ -499,12 +501,36 @@ function touchStart(event) {
       arrOfDrops.splice(obj2.node);
       modifyScore();
     }
-    // console.log(obj1.x, obj2.x)
+    
+  }
+
+  function changeBackground(){
+    
+    const currentImage = document.querySelector("#background-image").getAttribute("xlink:href");
+    let newImage =  currentImage.substring(7, currentImage.length-5);
+    console.log(newImage);
+
+    if(n == 2){
+      newImage+=`g${n}.png`
+    }
+    else if(n<=8){
+      newImage+=`${n}.png`
+    } else {
+      newImage = currentImage.substring(7);
+    }
+
+    n++;
+    uploadBackground(newImage);
+  }
+
+  function uploadBackground(backgroundImage) {
+    const bgImage = document.querySelector("#background-image");
+    bgImage.setAttribute("xlink:href", `assets/${backgroundImage}`);
   }
 
   function modifyScore(){
     document.querySelector('.score').textContent = points += 10;
-
+changeBackground();
     if (points.toString().includes("00")) {
       pointsHundreds = points;
     }
