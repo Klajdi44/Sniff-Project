@@ -20,6 +20,76 @@ let currentDrop;
 let leftFoxArray;
 let rightFoxArray;
 let pointsHundreds = 0;
+let audio;
+let isPlaying = false;
+let walkAudio;
+let walkIsPlaying = false;
+let flying;
+let flyingIsPlaying = false;
+
+const gameSounds = {
+  backgroundTheme: function () {
+    if (typeof audio === 'undefined') {
+      audio = new Audio('./gameSounds/theme.mp3');
+    }
+
+    if (isPlaying) {
+      return
+    } else {
+      audio.play();
+      audio.loop = true;
+    }
+
+    audio.volume = .2;
+    isPlaying = !isPlaying;
+  },
+  click: function () {
+    const click = new Audio('./gameSounds/click.mp3');
+    click.play();
+    click.volume = .2;
+
+  },
+  clickBack: function () {
+    const click = new Audio('./gameSounds/click2.mp3');
+    click.play();
+    click.volume = .2;
+
+  },
+  walk: function () {
+    if (typeof walkAudio === 'undefined') {
+      walkAudio = new Audio('./gameSounds/walking.mp3');
+
+    }
+
+    if (walkIsPlaying) {
+      walkAudio.play();
+    } else {
+      walkAudio.play();
+    }
+    walkAudio.volume = .2;
+    walkIsPlaying = !walkIsPlaying;
+  },
+  catching: function () {
+    const catching = new Audio('./gameSounds/catch1.mp3');
+    catching.play();
+    catching.volume = .5
+  },
+  flying: function (){
+    if (typeof flying === 'undefined') {
+      flying = new Audio('./gameSounds/flying.mp3');
+
+    }
+
+    if (flyingIsPlaying) {
+      flying.play();
+    } else {
+      flying.play();
+    }
+    flying.volume = .05;
+    flyingIsPlaying = !flyingIsPlaying;
+
+  }
+}
 
 const sniffObj = {
   width: 350,
@@ -108,10 +178,13 @@ function startButtonEvent() {
 
     fadeInAnimation();
   }, 300);
+
+  gameSounds.backgroundTheme();
 }
 
 //Load background, dropplets and other assets on level load
 function loadLevelAssets(event) {
+  gameSounds.click();
   fadeOutAnimation();
 
   const eventTargetId = event.target.id;
@@ -165,6 +238,7 @@ function removeBackButton(buttonID) {
 
 //Back button events
 function goBackLevels(event) {
+  gameSounds.clickBack();
   fadeOutAnimation();
   startButtonEvent();
   document.querySelector("#arrows").classList.add("hidden");
@@ -410,9 +484,11 @@ function keyUp(event) {
   if (event.key === "ArrowLeft" || event.key === "a") {
     leftKey = false;
     aKey = false;
+    gameSounds.walk();
   } else if (event.key === "ArrowRight" || event.key === "d") {
     rightKey = false;
     dKey = false;
+    gameSounds.walk();
   }
 }
 
@@ -457,7 +533,8 @@ function createDrop(positionX, positionY) {
   currentDrop.setAttribute("fill", newDropObj.fill);
 
   document.querySelector("#sprites").appendChild(currentDrop);
-
+  newDropObj.node.style.display = "block";
+  gameSounds.flying();
   return currentDrop;
 }
 
@@ -488,6 +565,8 @@ function detectCollision(obj1, obj2) {
     console.log("collision");
     arrOfDrops.splice(obj2.node);
     modifyScore();
+    obj2.node.style.display = "none";
+    gameSounds.catching();
   }
 }
 
