@@ -650,7 +650,7 @@
 			</g>
 			<rect x="618" y="611" fill="none" width="657" height="138" />
 			<text transform="matrix(1 0 0 1 766.2793 701.3799)" fill="#FFFFFF" font-family="'Candara'"
-				font-size="131px">START</text>
+				font-size="8em">START</text>
 		</g>
 		<g>
 			<path fill="#819777" d="M1386,875H537c-29.8,0-54-24.2-54-54v-8c0-29.8,24.2-54,54-54h849c29.8,0,54,24.2,54,54v8
@@ -663,10 +663,11 @@
 			</g>
 			<rect x="529" y="762" fill="none" width="865" height="138" />
 			<text transform="matrix(1 0 0 1 556.0898 844.791)" fill="#FFFFFF" font-family="'Candara'"
-				font-size="120px">ACHIEVEMENTS</text>
+				font-size="7.5em">ACHIEVEMENTS</text>
 		</g>
 		<rect x="418" y="268" fill="none" width="1056" height="254.7" />
 		<text transform="matrix(1 0 0 1 424.9307 364.5898)" fill="#705452" font-family="'Candara'"
-			font-size="140px">CATCH AND SAVE</text>
+			font-size="8.5em">CATCH
+			AND SAVE</text>
 	</g>
 </svg>
