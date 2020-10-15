@@ -649,8 +649,8 @@
 			C1337,696.8,1312.8,721,1283,721z" />
 			</g>
 			<rect x="618" y="611" fill="none" width="657" height="138" />
-			<text transform="matrix(1 0 0 1 766.2793 701.3799)" fill="#FFFFFF" font-family="'Candara'"
-				font-size="8em">START</text>
+			<text transform="matrix(1 0 0 1 766.2793 701.3799)" fill="#FFFFFF" font-family: "'Roboto'"
+				font-size="7.5em">START</text>
 		</g>
 		<g>
 			<path fill="#819777" d="M1386,875H537c-29.8,0-54-24.2-54-54v-8c0-29.8,24.2-54,54-54h849c29.8,0,54,24.2,54,54v8
@@ -662,12 +662,12 @@
 			C1435,840.8,1410.8,865,1381,865z" />
 			</g>
 			<rect x="529" y="762" fill="none" width="865" height="138" />
-			<text transform="matrix(1 0 0 1 556.0898 844.791)" fill="#FFFFFF" font-family="'Candara'"
-				font-size="7.5em">ACHIEVEMENTS</text>
+			<text transform="matrix(1 0 0 1 556.0898 844.791)" fill="#FFFFFF" font-family: "'Roboto'"
+				font-size="6.5em">ACHIEVEMENTS</text>
 		</g>
 		<rect x="418" y="268" fill="none" width="1056" height="254.7" />
-		<text transform="matrix(1 0 0 1 424.9307 364.5898)" fill="#705452" font-family="'Candara'"
-			font-size="8.5em">CATCH
+		<text transform="matrix(1 0 0 1 424.9307 364.5898)" fill="#705452" font-family: "'Roboto'"
+			font-size="7.5em">CATCH
 			AND SAVE</text>
 	</g>
 </svg>

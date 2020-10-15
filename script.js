@@ -119,6 +119,7 @@ function start() {
   console.log("ready to start");
   loadSVG("assets/random.svg", "#startcontainer", createInitSVG, "#startSVG");
   loadSVG("assets/anotherrandom.svg", "#levelscontainer");
+  loadSVG("assets/achievements.svg", "#achievementscontainer");
 }
 
 function loadSVG(url, target, callback, createThis) {
@@ -142,6 +143,7 @@ function createInitSVG(svg) {
   hideContainers();
 
   document.querySelector("#button-start").addEventListener("click", startButtonEvent); //start game event
+  document.querySelector("#button-achievements").addEventListener("click", achievementsButtonEvent); //start game event
 }
 
 function useSVG(svg, useID, endPoint) {
@@ -154,6 +156,7 @@ function useSVG(svg, useID, endPoint) {
 function hideContainers() {
   document.querySelector("#startcontainer").classList.add("hidden");
   document.querySelector("#levelscontainer").classList.add("hidden");
+  document.querySelector("#achievementscontainer").classList.add("hidden");
 }
 
 //Pressing start
@@ -181,6 +184,58 @@ function startButtonEvent() {
   }, 300);
 
   gameSounds.backgroundTheme();
+}
+
+//Achievements
+function achievementsButtonEvent(){
+  fadeOutAnimation();
+
+  //Check if there is a back button already
+  removeBackButton("#startBackButton");
+  checkAchievementsHats();
+  //Timeout to play fade animation
+  setTimeout(function () {
+    //Check if there is used start svg for back button event
+    if (document.querySelector("#startScreen")) {
+      document.querySelector("#startScreen").remove();
+    }
+
+    //Replace back button
+    createBackButton("startBackButton");
+    document.querySelector("#startBackButton").addEventListener("click", goBackStart);
+
+    useSVG("#achievementsSVG", "achievementsScreen", "#background"); //create level selection screen
+    //do what I need to do
+
+    fadeInAnimation();
+  }, 300);
+
+  gameSounds.backgroundTheme();
+}
+let number;
+function checkAchievementsHats() {
+  
+  document.querySelectorAll(".a-hat").forEach((hat) => {
+    hat.classList.add("hidden");
+    const hatId = hat.getAttribute("id");
+    number = 1;
+
+    if(hatId.includes(`hat${Math.floor(localStorage.getItem("highScore")/100)}`)){
+      hat.classList.add("hidden");
+    }
+    else {
+      hat.classList.remove("hidden");
+    }
+
+    while(number<=5){
+      if(number<Math.floor(localStorage.getItem("highScore")/100)&&hatId.includes(`hat${number}`)){
+      hat.classList.add("hidden");
+    } 
+    number++;
+    }
+    
+    
+  });
 }
 
 //Load background, dropplets and other assets on level load
@@ -260,6 +315,10 @@ function goBackLevels(event) {
 
 function goBackStart(event) {
   fadeOutAnimation();
+
+  if (document.querySelector("#achievementsScreen")) {
+    document.querySelector("#achievementsScreen").remove();
+  }
 
   setTimeout(function () {
     createInitSVG("#startSVG");
