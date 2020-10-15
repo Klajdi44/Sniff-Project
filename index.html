@@ -4,23 +4,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <title>Sniff</title>
+  <link rel="icon" href="./assets/heat.svg" type="image" sizes="16x16">
+
+  <title>Catch and save</title>
 </head>
 
 <body>
   <svg id='mainSvg' viewBox='0 0 1920 1080'>
     <g id='background'>
+      <image id="background-image" class="hidden" xlink:href="" width="100%" height="100%"/>
     </g>
 
-
     <g id='sprites'>
-      <rect id='sniff' />
+      <image  id='questionMark' xlink:href="./assets/questionMark.svg"  x="200" y="100" height="130" width="130"/>
     </g>
 
     <g id='foreground'>
+      <g id='arrows' class="hidden">
+        <path id="arrowLeft"
+          d="M122.64,254c3.22,3.21,5.82,2.13,5.82-2.41V216.28a8.23,8.23,0,0,1,8.23-8.23H296.06a8.22,8.22,0,0,0,8.22-8.22V56a8.22,8.22,0,0,0-8.22-8.22H136.69a8.23,8.23,0,0,1-8.23-8.23V4.26c0-4.54-2.6-5.62-5.82-2.41L2.41,122.08a8.24,8.24,0,0,0,0,11.64Z"
+          fill="#6fb52c" />
+        <path id="arrowRight"
+          d="M690.13,133.72a8.22,8.22,0,0,0,0-11.64L569.9,1.85c-3.21-3.21-5.82-2.13-5.82,2.41V39.52a8.23,8.23,0,0,1-8.22,8.23H396.49A8.23,8.23,0,0,0,388.26,56V199.83a8.23,8.23,0,0,0,8.23,8.22H555.86a8.23,8.23,0,0,1,8.22,8.23v35.26c0,4.54,2.61,5.62,5.82,2.41Z"
+          fill="#6fb52c" />
+      </g>
     </g>
   </svg>
+
+  <div class="pointsFlex">
+    <div class="highPoints hidden">High score: <span class="Highscore"></span> <button class='highScoreBtn'>Save Score</button></div>
+    <div class="points hidden">Score: <span class="score">0</span></div>
+  </div>
+
+  <div class="waterContainer"></div>
+  <div class="electricityContainer"></div>
+  <div class="lightContainer"></div>
+  <div class="heatContainer"></div>
+  <div id="snifcontainer"></div>
+  <div id="startcontainer"></div>
+  <div id="levelscontainer"></div>
+  <div id="achievementscontainer"></div>
 
   <script src="script.js"></script>
 </body>

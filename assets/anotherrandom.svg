@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.1.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	y="0px" viewBox="0 0 1920 1080" enable-background="new 0 0 1920 1080" xml:space="preserve">
+	<g id="levelsSVG">
+		<g opacity="0.57">
+			<rect fill="#8D9E9A" width="1919" height="1079" />
+		</g>
+		<rect x="72" y="53" fill="#8D9E9A" width="866" height="487" />
+		<rect x="1021" y="53" fill="#8D9E9A" width="866" height="487" />
+		<rect x="72" y="581" fill="#8D9E9A" width="866" height="487" />
+		<rect x="1021" y="581" fill="#8D9E9A" width="866" height="487" />
+		<g id="levelButtons">
+			<image id="water-bg" overflow="visible" width="1920" height="1080" xlink:href="assets/water-bg.png"
+				transform="matrix(0.451 0 0 0.451 51 34)">
+			</image>
+			<image id="heat-bg" overflow="visible" width="1920" height="1080" xlink:href="assets/heat-bg.png"
+				transform="matrix(0.4505 0 0 0.4505 998 34)">
+			</image>
+			<image id="power-bg" overflow="visible" width="1920" height="1080" xlink:href="assets/power-bg.png"
+				transform="matrix(0.45 0 0 0.45 52 565)">
+			</image>
+			<image id="light-bg" overflow="visible" width="1920" height="1080" xlink:href="assets/light-bg.png"
+				transform="matrix(0.45 0 0 0.45 999 565)">
+			</image>
+		</g>
+	</g>
+</svg>

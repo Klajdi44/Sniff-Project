@@ -4,12 +4,129 @@
   box-sizing: border-box;
 }
 
-#mainSvg {
-  outline: 1px solid red;
+body,
+html {
+  background-color: #f2e2ce;
 }
-/* sniff himself */
 
-.drop{
-  r:30px;
+/* sniff himself */
+#snifcontainer {
+  display: none;
+}
+
+.drop {
+  height: 50px;
+  width: 50px;
   fill: red;
+}
+
+#arrows {
+  transform: translateY(54em) scale(0.5) translateX(5em);
+  z-index: 5;
+}
+
+#arrowLeft,
+#arrowRight {
+  fill: rgba(255, 0, 0, 0.358);
+}
+
+#power,
+#heat,
+#light,
+#water {
+  width: 0;
+}
+
+.points,
+.highPoints {
+  background-color: rgba(95, 158, 160, 0.281);
+  padding: 0.5em 1em;
+  font-size: 2.5em;
+  border-radius: 50px;
+}
+
+.highScoreBtn {
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  color: white;
+  border: none;
+  background-color: rgb(214, 168, 178);
+  border-radius: 5px;
+  padding: 0.2em 0.5em;
+  margin: 0 0.5em;
+  font-size: 0.6em;
+}
+
+.pointsFlex {
+  position: absolute;
+  width: 68%;
+  top: 2%;
+  right: 2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  color: white;
+}
+
+.drop {
+  r: 30px;
+  fill: red;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Game start buttons and animations */
+#button-start,
+#button-achievements,
+#water-bg,
+#light-bg,
+#power-bg,
+#heat-bg {
+  cursor: pointer;
+}
+
+.fadeIn {
+  opacity: 0;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeOut {
+  opacity: 1;
+  animation: fadeOut 0.3s ease-out forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .points,
+  .highPoints {
+    padding: 0.5em 1em;
+    font-size: 1.5em;
+  }
+
+  .highScoreBtn {
+    padding: 0.2em 0.5em;
+    font-size: 0.8em;
+  }
+}
+
+#questionMark {
+  cursor: pointer;
+}
+#questionMark:hover {
+  height: 140px;
+  transition: all 0.3s ease;
 }
