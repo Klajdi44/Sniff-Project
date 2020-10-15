@@ -80,18 +80,12 @@ html {
 
 /* Game start buttons and animations */
 #button-start,
+#button-achievements,
 #water-bg,
 #light-bg,
 #power-bg,
 #heat-bg {
   cursor: pointer;
-}
-#questionMark{
-cursor: pointer;
-}
-#questionMark:hover{
-  height: 140px;
-  transition: all .3s ease;
 }
 
 .fadeIn {
@@ -127,4 +121,12 @@ cursor: pointer;
     padding: 0.2em 0.5em;
     font-size: 0.8em;
   }
+}
+
+#questionMark {
+  cursor: pointer;
+}
+#questionMark:hover {
+  height: 140px;
+  transition: all 0.3s ease;
 }

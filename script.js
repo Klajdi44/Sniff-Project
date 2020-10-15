@@ -76,7 +76,7 @@ const gameSounds = {
     catching.play();
     catching.volume = .5
   },
-  flying: function () {
+  flying: function (){
     if (typeof flying === 'undefined') {
       flying = new Audio('./gameSounds/flying.mp3');
 
@@ -89,7 +89,6 @@ const gameSounds = {
     }
     flying.volume = .05;
     flyingIsPlaying = !flyingIsPlaying;
-
   },
   info: function () {
     if (typeof info === 'undefined') {
@@ -104,6 +103,7 @@ const gameSounds = {
     info.volume = .5;
     infoIsPlaying = !infoIsPlaying;
   }
+  
 }
 
 const sniffObj = {
@@ -130,13 +130,13 @@ const dropObj = arrOfDrops[0];
 const mainSVG = document.querySelector("#mainSvg");
 
 function start() {
-  console.log(Math.floor(localStorage.getItem("highScore") / 100))
   console.log("ready to start");
   loadSVG("assets/random.svg", "#startcontainer", createInitSVG, "#startSVG");
   loadSVG("assets/anotherrandom.svg", "#levelscontainer");
+  loadSVG("assets/achievements.svg", "#achievementscontainer");
   document.querySelector('#questionMark').addEventListener('click', () => {
-   gameSounds.info();
-  });
+    gameSounds.info();
+   });
 }
 
 function loadSVG(url, target, callback, createThis) {
@@ -160,6 +160,7 @@ function createInitSVG(svg) {
   hideContainers();
 
   document.querySelector("#button-start").addEventListener("click", startButtonEvent); //start game event
+  document.querySelector("#button-achievements").addEventListener("click", achievementsButtonEvent); //start game event
 }
 
 function useSVG(svg, useID, endPoint) {
@@ -170,9 +171,10 @@ function useSVG(svg, useID, endPoint) {
 }
 
 function hideContainers() {
-  document.querySelector("#startcontainer").classList.add("hidden");
   document.querySelector('#questionMark').classList.remove('hidden');
+  document.querySelector("#startcontainer").classList.add("hidden");
   document.querySelector("#levelscontainer").classList.add("hidden");
+  document.querySelector("#achievementscontainer").classList.add("hidden");
 }
 
 //Pressing start
@@ -201,6 +203,59 @@ function startButtonEvent() {
 
   document.querySelector('#questionMark').classList.add('hidden');
   gameSounds.backgroundTheme();
+}
+
+//Achievements
+function achievementsButtonEvent(){
+  fadeOutAnimation();
+
+  //Check if there is a back button already
+  removeBackButton("#startBackButton");
+  checkAchievementsHats();
+  //Timeout to play fade animation
+  setTimeout(function () {
+    //Check if there is used start svg for back button event
+    if (document.querySelector("#startScreen")) {
+      document.querySelector("#startScreen").remove();
+      document.querySelector('#questionMark').classList.add('hidden');
+    }
+
+    //Replace back button
+    createBackButton("startBackButton");
+    document.querySelector("#startBackButton").addEventListener("click", goBackStart);
+
+    useSVG("#achievementsSVG", "achievementsScreen", "#background"); //create level selection screen
+    //do what I need to do
+
+    fadeInAnimation();
+  }, 300);
+
+  gameSounds.backgroundTheme();
+}
+let number;
+function checkAchievementsHats() {
+  
+  document.querySelectorAll(".a-hat").forEach((hat) => {
+    hat.classList.add("hidden");
+    const hatId = hat.getAttribute("id");
+    number = 1;
+
+    if(hatId.includes(`hat${Math.floor(localStorage.getItem("highScore")/100)}`)){
+      hat.classList.add("hidden");
+    }
+    else {
+      hat.classList.remove("hidden");
+    }
+
+    while(number<=5){
+      if(number<Math.floor(localStorage.getItem("highScore")/100)&&hatId.includes(`hat${number}`)){
+      hat.classList.add("hidden");
+    } 
+    number++;
+    }
+    
+    
+  });
 }
 
 //Load background, dropplets and other assets on level load
@@ -239,8 +294,6 @@ function loadLevelAssets(event) {
 function uploadBackground(backgroundImage) {
   const bgImage = document.querySelector("#background-image");
   bgImage.setAttribute("xlink:href", `assets/${backgroundImage}`);
-
-  waterAnimation();
 }
 
 //Create and remove back button
@@ -271,7 +324,8 @@ function goBackLevels(event) {
     document.querySelector(".points").classList.add("hidden");
     document.querySelector(".highPoints").classList.add("hidden");
     event.target.remove();
-    document.querySelector("#sprites").innerHTML = "";
+    document.querySelector("#sprites use").remove();
+    document.querySelector("#sprites svg").remove();
     n = 2; //reset
 
     fadeInAnimation();
@@ -280,6 +334,10 @@ function goBackLevels(event) {
 
 function goBackStart(event) {
   fadeOutAnimation();
+
+  if (document.querySelector("#achievementsScreen")) {
+    document.querySelector("#achievementsScreen").remove();
+  }
 
   setTimeout(function () {
     createInitSVG("#startSVG");
@@ -300,22 +358,6 @@ function fadeOutAnimation() {
 }
 //
 
-//Level animations
-
-function determineLevelAnimation() {
-  const backgroundImage = document.querySelector("#background-image").getAttribute("xlink:href");
-
-  if (backgroundImage.includes("water-bg")) {
-    waterAnimation();
-  }
-}
-
-function waterAnimation() {
-  let waterTear = document.querySelector(`#tear`).cloneNode(true);
-  document.querySelector("#background").appendChild(waterTear);
-  waterTear.classList.add("dropAnimation");
-}
-//
 
 function loadFox() {
   loadSnif("assets/snifhats2-01.svg", "#snifcontainer", hideSnif);
@@ -422,10 +464,10 @@ function getHats() {
     let pointString = pointsHundreds.toString();
 
 
-    if (localStorage.getItem("highScore") >= pointString && hatId.includes(`hat${Math.floor(localStorage.getItem("highScore") / 100)}`)) {
+    if(localStorage.getItem("highScore")>=pointString && hatId.includes(`hat${Math.floor(localStorage.getItem("highScore")/100)}`)){
       hat.classList.remove("hidden");
     }
-    else if (pointString.includes("00") && pointString > localStorage.getItem("highScore") && hatId.includes(`hat${pointsHundreds / 100}`)) {
+    else if (pointString.includes("00") && pointString>localStorage.getItem("highScore")&& hatId.includes(`hat${pointsHundreds / 100}`)) {
       hat.classList.remove("hidden");
     } else {
       hat.classList.add("hidden");
@@ -521,17 +563,18 @@ function keyDown(event) {
     rightKey = true;
     dKey = true;
   }
-  gameSounds.walk()
-
+  gameSounds.walk();
 }
 
 function keyUp(event) {
   if (event.key === "ArrowLeft" || event.key === "a") {
     leftKey = false;
     aKey = false;
+   
   } else if (event.key === "ArrowRight" || event.key === "d") {
     rightKey = false;
     dKey = false;
+    
   }
 }
 
@@ -543,7 +586,6 @@ function touchStart(event) {
     sniffLeft = true;
     leftArrowTouch = true;
   }
-  gameSounds.walk();
 }
 
 function touchEnd(event) {

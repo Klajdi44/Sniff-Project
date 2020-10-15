@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <title>Sniff</title>
+  <link rel="icon" href="./assets/heat.svg" type="image" sizes="16x16">
+
+  <title>Catch and save</title>
 </head>
 
 <body>
@@ -14,8 +16,9 @@
     <g id='background'>
       <image id="background-image" class="hidden" xlink:href="" width="100%" height="100%"/>
     </g>
-    <image  id='questionMark' xlink:href="./assets/questionMark.svg"  x="200" y="100" height="130" width="130"/>
+
     <g id='sprites'>
+      <image  id='questionMark' xlink:href="./assets/questionMark.svg"  x="200" y="100" height="130" width="130"/>
     </g>
 
     <g id='foreground'>
@@ -29,7 +32,6 @@
       </g>
     </g>
   </svg>
- 
 
   <div class="pointsFlex">
     <div class="highPoints hidden">High score: <span class="Highscore"></span> <button class='highScoreBtn'>Save Score</button></div>
@@ -43,6 +45,7 @@
   <div id="snifcontainer"></div>
   <div id="startcontainer"></div>
   <div id="levelscontainer"></div>
+  <div id="achievementscontainer"></div>
 
   <script src="script.js"></script>
 </body>
