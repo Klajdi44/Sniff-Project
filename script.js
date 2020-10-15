@@ -115,6 +115,7 @@ const dropObj = arrOfDrops[0];
 const mainSVG = document.querySelector("#mainSvg");
 
 function start() {
+  console.log(Math.floor(localStorage.getItem("highScore")/100))
   console.log("ready to start");
   loadSVG("assets/random.svg", "#startcontainer", createInitSVG, "#startSVG");
   loadSVG("assets/anotherrandom.svg", "#levelscontainer");
@@ -218,6 +219,8 @@ function loadLevelAssets(event) {
 function uploadBackground(backgroundImage) {
   const bgImage = document.querySelector("#background-image");
   bgImage.setAttribute("xlink:href", `assets/${backgroundImage}`);
+
+  waterAnimation();
 }
 
 //Create and remove back button
@@ -275,6 +278,24 @@ function fadeOutAnimation() {
   mainSVG.classList.remove("fadeIn");
   mainSVG.classList.add("fadeOut");
 }
+//
+
+//Level animations
+
+function determineLevelAnimation() {
+  const backgroundImage = document.querySelector("#background-image").getAttribute("xlink:href");
+
+  if (backgroundImage.includes("water-bg")) {
+    waterAnimation();
+  } 
+}
+
+function waterAnimation() {
+  let waterTear = document.querySelector(`#tear`).cloneNode(true);
+  document.querySelector("#background").appendChild(waterTear);
+  waterTear.classList.add("dropAnimation");
+}
+//
 
 function loadFox() {
   loadSnif("assets/snifhats2-01.svg", "#snifcontainer", hideSnif);
@@ -380,12 +401,15 @@ function getHats() {
     const hatId = hat.getAttribute("id");
     let pointString = pointsHundreds.toString();
 
-    if (pointString.includes("00") && hatId.includes(`hat${pointsHundreds / 100}`)) {
+
+    if(localStorage.getItem("highScore")>=pointString && hatId.includes(`hat${Math.floor(localStorage.getItem("highScore")/100)}`)){
+      hat.classList.remove("hidden");
+    }
+    else if (pointString.includes("00") && pointString>localStorage.getItem("highScore")&& hatId.includes(`hat${pointsHundreds / 100}`)) {
       hat.classList.remove("hidden");
     } else {
       hat.classList.add("hidden");
     }
-    console.log(hatId);
   });
 }
 
@@ -429,7 +453,6 @@ function loop() {
   draw();
 
   arrOfDrops.forEach((drop) => {
-    // console.log(drop)
     detectCollision(sniffObj, drop);
   });
 
@@ -516,7 +539,6 @@ function createDrop(positionX, positionY) {
   //get random value up to 1850
   positionX = Math.ceil(Math.random() * 1850);
   // console.log(positionY, positionX);
-
   determineDrop();
 
   let newDropObj = Object.create(dropObj);
