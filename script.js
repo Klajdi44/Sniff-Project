@@ -208,6 +208,7 @@ function startButtonEvent() {
 //Achievements
 function achievementsButtonEvent(){
   fadeOutAnimation();
+  document.querySelector('#questionMark').classList.add('hidden');
 
   //Check if there is a back button already
   removeBackButton("#startBackButton");
