@@ -11,16 +11,16 @@
 		<rect x="72" y="581" fill="#8D9E9A" width="866" height="487" />
 		<rect x="1021" y="581" fill="#8D9E9A" width="866" height="487" />
 		<g id="levelButtons">
-			<image id="water-bg" overflow="visible" width="1920" height="1080" xlink:href="water-bg.png"
+			<image id="water-bg" overflow="visible" width="1920" height="1080" xlink:href="assets/water-bg.png"
 				transform="matrix(0.451 0 0 0.451 51 34)">
 			</image>
-			<image id="heat-bg" overflow="visible" width="1920" height="1080" xlink:href="heat-bg.png"
+			<image id="heat-bg" overflow="visible" width="1920" height="1080" xlink:href="assets/heat-bg.png"
 				transform="matrix(0.4505 0 0 0.4505 998 34)">
 			</image>
-			<image id="power-bg" overflow="visible" width="1920" height="1080" xlink:href="power-bg.png"
+			<image id="power-bg" overflow="visible" width="1920" height="1080" xlink:href="assets/power-bg.png"
 				transform="matrix(0.45 0 0 0.45 52 565)">
 			</image>
-			<image id="light-bg" overflow="visible" width="1920" height="1080" xlink:href="light-bg.png"
+			<image id="light-bg" overflow="visible" width="1920" height="1080" xlink:href="assets/light-bg.png"
 				transform="matrix(0.45 0 0 0.45 999 565)">
 			</image>
 		</g>
