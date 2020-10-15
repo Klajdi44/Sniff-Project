@@ -17,19 +17,19 @@
 		</g>
 		<g id="score">
 			<rect x="125.2" y="424.2" fill="none" width="469.2" height="38.5" />
-			<text transform="matrix(1 0 0 1 218.3789 449.7393)" fill="#FFFFFF" font-family="'MyriadPro-Regular'"
+			<text transform="matrix(1 0 0 1 218.3789 449.7393)" fill="#FFFFFF" font-family="Roboto, sans-serif"
 				font-size="36px">Reach Score of 100</text>
 			<rect x="743.2" y="424.2" fill="none" width="469.2" height="38.5" />
-			<text transform="matrix(1 0 0 1 836.3789 449.7393)" fill="#FFFFFF" font-family="'MyriadPro-Regular'"
+			<text transform="matrix(1 0 0 1 836.3789 449.7393)" fill="#FFFFFF" font-family="Roboto, sans-serif"
 				font-size="36px">Reach Score of 200</text>
 			<rect x="1343.2" y="424.2" fill="none" width="469.2" height="38.5" />
-			<text transform="matrix(1 0 0 1 1436.3789 449.7393)" fill="#FFFFFF" font-family="'MyriadPro-Regular'"
+			<text transform="matrix(1 0 0 1 1436.3789 449.7393)" fill="#FFFFFF" font-family="Roboto, sans-serif"
 				font-size="36px">Reach Score of 300</text>
 			<rect x="1025.2" y="945.2" fill="none" width="469.2" height="38.5" />
-			<text transform="matrix(1 0 0 1 1118.3789 970.7393)" fill="#FFFFFF" font-family="'MyriadPro-Regular'"
+			<text transform="matrix(1 0 0 1 1118.3789 970.7393)" fill="#FFFFFF" font-family="Roboto, sans-serif"
 				font-size="36px">Reach Score of 500</text>
 			<rect x="431.2" y="945.2" fill="none" width="469.2" height="38.5" />
-			<text transform="matrix(1 0 0 1 524.3789 970.7393)" fill="#FFFFFF" font-family="'MyriadPro-Regular'"
+			<text transform="matrix(1 0 0 1 524.3789 970.7393)" fill="#FFFFFF" font-family="Roboto, sans-serif"
 				font-size="36px">Reach Score of 400</text>
 		</g>
 		<g id="snif">
