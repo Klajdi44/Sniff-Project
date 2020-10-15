@@ -122,3 +122,11 @@ html {
     font-size: 0.8em;
   }
 }
+
+#questionMark {
+  cursor: pointer;
+}
+#questionMark:hover {
+  height: 140px;
+  transition: all 0.3s ease;
+}
