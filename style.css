@@ -1,3 +1,17 @@
+@font-face {
+  font-family: "edoregular";
+  src: url("fonts/edo-webfont.woff2") format("woff2"), url("fonts/edo-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "tropical_asian_demoregular";
+  src: url("fonts/tropical_asian_demo_regular_400-webfont.woff2") format("woff2"), url("fonts/tropical_asian_demo_regular_400-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   /* padding: 0;
   margin: 0; */
@@ -41,31 +55,36 @@ html {
 .highPoints {
   background-color: rgba(95, 158, 160, 0.281);
   padding: 0.5em 1em;
-  font-size: 2.5em;
+  font-size: 4em;
   border-radius: 50px;
 }
 
+.highPoints .Highscore,
+.points .score {
+  font-size: 0.6em;
+  font-family: "edoregular", sans-serif;
+}
 .highScoreBtn {
   cursor: pointer;
-  font-family: "Roboto", sans-serif;
+  font-family: "tropical_asian_demoregular", sans-serif;
   color: white;
   border: none;
   background-color: rgb(214, 168, 178);
   border-radius: 5px;
   padding: 0.2em 0.5em;
   margin: 0 0.5em;
-  font-size: 0.6em;
+  font-size: 0.8em;
 }
 
 .pointsFlex {
   position: absolute;
-  width: 68%;
+  width: 72%;
   top: 2%;
   right: 2em;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: "Roboto", sans-serif;
+  font-family: "tropical_asian_demoregular", sans-serif;
   color: white;
 }
 
